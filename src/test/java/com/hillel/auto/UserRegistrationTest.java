@@ -19,37 +19,15 @@ import static org.testng.Assert.assertEquals;
 /**
  * Created by alpa on 5/3/20
  */
-public class UserRegistrationTest {
-
-    private WebDriver driver;
-
-    @BeforeClass
-    public void setUpDriver() {
-        WebDriverManager.chromedriver().setup();
-    }
-
-    @BeforeMethod
-    public void setUp() {
-        driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(4000, TimeUnit.MILLISECONDS);
-    }
-
-    @AfterMethod
-    public void tearDown() {
-        driver.quit();
-    }
+public class UserRegistrationTest extends TestBase{
 
     @Test
     public void registrationTest() {
         driver.get("https://react-redux.realworld.io/");
-//        #main > div > nav > div > ul > li:nth-child(3) > a
-//        WebElement signUpButton = driver.findElement(By.cssSelector("#main > div > nav > div > ul > li:nth-child(3) > a"));
-//        WebElement signUpButton = driver.findElement(By.linkText("Sign up"));
+
         WebElement signUpButton = driver.findElement(By.cssSelector("a[href='#register']"));
         signUpButton.click();
 
-//        String currentUrl = driver.getCurrentUrl();
-//        assertThat(currentUrl).contains("register");
         WebElement singUpHeader = driver.findElement(By.cssSelector(".auth-page h1"));
         assertThat(singUpHeader.getText()).isEqualTo("Sign Up");
 
@@ -270,5 +248,14 @@ public class UserRegistrationTest {
 
         WebElement header2 = driver.findElement(By.cssSelector("h4"));
         assertEquals(header2.getText(), user);
+    }
+
+    private void clickRegistrationButton() {
+        WebElement signUpButton = driver.findElement(By.cssSelector("a[href='#register']"));
+        signUpButton.click();
+    }
+
+    private WebElement userNameField() {
+        return singForm().findElement(By.cssSelector("input[type='text']"));
     }
 }
