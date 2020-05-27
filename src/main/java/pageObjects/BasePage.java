@@ -3,10 +3,11 @@ package pageObjects;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
 
 public abstract class BasePage {
 
-    protected WebDriver driver;
+    protected WebDriver driver = new ChromeDriver();
     protected WaitsExample waits;
 
     public BasePage(WebDriver driver) {

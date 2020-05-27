@@ -4,11 +4,27 @@ import java.util.Random;
 
 
 public class User {
-
-    private String userName;
+//    private long id;
+    private String username;
     private String email;
     private String password;
-
+//    private String token;
+//
+//    public long getId() {
+//        return id;
+//    }
+//
+//    public void setId(long id) {
+//        this.id = id;
+//    }
+//
+//    public String getToken() {
+//        return token;
+//    }
+//
+//    public void setToken(String token) {
+//        this.token = token;
+//    }
 
     public User() {
     }
@@ -19,17 +35,17 @@ public class User {
     }
 
     public User(String userName, String email, String password) {
-        this.userName = userName;
+        this.username = userName;
         this.email = email;
         this.password = password;
     }
 
     public String getUserName() {
-        return userName;
+        return username;
     }
 
     public void setUserName(String userName) {
-        this.userName = userName;
+        this.username = userName;
     }
 
     public String getEmail() {

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite verbose="0" name="Failed suite [Command line suite]">
+  <test thread-count="5" verbose="0" name="Command line test(failed)">
+    <classes>
+      <class name="com.hillel.auto.ArticleTest">
+        <methods>
+          <include name="setUpDriver"/>
+          <include name="deleteArticleTest"/>
+          <include name="editArticleTest"/>
+          <include name="setUp"/>
+          <include name="tearDown"/>
+        </methods>
+      </class> <!-- com.hillel.auto.ArticleTest -->
+      <class name="com.hillel.auto.LoginTest">
+        <methods>
+          <include name="loginTest"/>
+          <include name="setUpDriver"/>
+          <include name="setUp"/>
+          <include name="tearDown"/>
+        </methods>
+      </class> <!-- com.hillel.auto.LoginTest -->
+      <class name="com.hillel.auto.UserRegistrationTest">
+        <methods>
+          <include name="setUpDriver"/>
+          <include name="emailAlreadyExistTest"/>
+          <include name="registrationTest"/>
+          <include name="blankUserNameTest"/>
+          <include name="invalidEmailTest"/>
+          <include name="navigateOfLoginUser"/>
+          <include name="tooShortPasswordTest"/>
+          <include name="setUp"/>
+          <include name="tearDown"/>
+        </methods>
+      </class> <!-- com.hillel.auto.UserRegistrationTest -->
+    </classes>
+  </test> <!-- Command line test(failed) -->
+</suite> <!-- Failed suite [Command line suite] -->

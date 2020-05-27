@@ -14,14 +14,16 @@ public class LoginTest extends TestBase {
 
     @Test
     public void loginTest() {
-//        clickLoginButton();
 
-        LoginPage loginPage = new LoginPage(driver);
+            clickLoginButton();
 
-        assertThat(loginPage.getPageTitle()).isEqualTo("Sign In");
+            LoginPage loginPage = new LoginPage(driver);
 
-        HomePage homePage = loginPage.login(user.getEmail(), user.getPassword());
-        assertThat(homePage.isUserLoggedIn(user.getUserName())).isTrue();
-    }
+            assertThat(loginPage.getPageTitle()).isEqualTo("Sign In");
+
+            HomePage homePage = loginPage.login(user.getEmail(), user.getPassword());
+            System.out.println("Check that user ig logged in");
+            assertThat(homePage.isUserLoggedIn(user.getUserName())).isTrue();
+        }
 
 }

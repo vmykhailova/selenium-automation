@@ -1,59 +1,41 @@
 package com.hillel.auto;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
-import model.Article;
-import model.User;
+import config.WebDriverConfig;
+import config.WebDriverFactory;
+import listener.TestMethodExecutionListener;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
-import pageObjects.ArticleDetailsPage;
-import pageObjects.HomePage;
-import pageObjects.LoginPage;
-import utils.ArticleData;
-import utils.UserData;
+import org.testng.annotations.Listeners;
 
 import java.util.concurrent.TimeUnit;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-
+@Listeners({TestMethodExecutionListener.class})
 public class TestBase {
-    public WebDriver driver;
-    protected User user =  UserData.defaultUser();
-    protected HomePage homePage;
+
+    protected WebDriver driver;
 
     @BeforeClass
     public void setUpDriver() {
-        WebDriverManager.chromedriver().setup();
+        WebDriverConfig.load();
     }
 
     @BeforeMethod
     public void setUp() {
-        driver = new ChromeDriver();
+
+        driver = WebDriverFactory.createDriver();
         driver.manage().timeouts().implicitlyWait(4000, TimeUnit.MILLISECONDS);
         driver.get("https://react-redux.realworld.io/");
-        clickLoginButton();
-        driver.manage().timeouts().implicitlyWait(4000, TimeUnit.MILLISECONDS);
-        login();
     }
 
     @AfterMethod
     public void tearDown() {
         driver.quit();
-    }
-
-    public void login() {
-
-        LoginPage loginPage = new LoginPage(driver);
-        driver.manage().timeouts().implicitlyWait(4000, TimeUnit.MILLISECONDS);
-        assertThat(loginPage.getPageTitle()).isEqualTo("Sign In");
-
-        homePage = loginPage.login(user.getEmail(), user.getPassword());
-        assertThat(homePage.isUserLoggedIn(user.getUserName())).isTrue();
     }
 
 
@@ -90,10 +72,7 @@ public class TestBase {
     }
 
     protected void clickLoginButton() {
-
-        WebElement signUpButton = driver.findElement(By.cssSelector("[href=\"#login\"]"));
+        WebElement signUpButton = driver.findElement(By.cssSelector("a[href='#login']"));
         signUpButton.click();
     }
-
-
 }

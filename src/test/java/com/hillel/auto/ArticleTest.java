@@ -6,10 +6,6 @@ import model.User;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pageObjects.*;
 import utils.ArticleData;
@@ -22,44 +18,17 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class ArticleTest extends TestBase {
     protected Article article =  ArticleData.createArticle();
-    protected User user =  UserData.defaultUser();
+//    protected User user =  UserData.defaultUser();
     protected HomePage homePage;
-    protected ArticleDetailsPage articleDetailsPage;
-    protected WebDriver driver;
-    @BeforeClass
-    public void setUpDriver() {
-        WebDriverManager.chromedriver().setup();
-    }
+//    protected ArticleDetailsPage articleDetailsPage;
 
-    @BeforeMethod
-    public void setUp() {
-        driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(4000, TimeUnit.MILLISECONDS);
-        driver.get("https://react-redux.realworld.io/");
-        clickLoginButton();
-        driver.manage().timeouts().implicitlyWait(4000, TimeUnit.MILLISECONDS);
-        login();
-    }
 
-    @AfterMethod
-    public void tearDown() {
-        driver.quit();
-    }
-
-    public void login() {
-
-        LoginPage loginPage = new LoginPage(driver);
-        driver.manage().timeouts().implicitlyWait(4000, TimeUnit.MILLISECONDS);
-        assertThat(loginPage.getPageTitle()).isEqualTo("Sign In");
-
-        homePage = loginPage.login(user.getEmail(), user.getPassword());
-        assertThat(homePage.isUserLoggedIn(user.getUserName())).isTrue();
-    }
 
     @Test(priority = 1)
-    public void createArticleTest() {
-
+    public void createArticleTest() throws InterruptedException {
+        homePage = new HomePage(driver);
         NewArticlePage newArticlePage = homePage.clickNewPost();
+        driver.manage().timeouts().implicitlyWait(4000, TimeUnit.MILLISECONDS);
 
         newArticlePage.inputArticleTitle(article.getTitle());
         newArticlePage.inputWhatArticleAbout(article.getDescription());
